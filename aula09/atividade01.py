@@ -72,6 +72,11 @@ except Exception as e:
 try:
     print('Calculando outliers...')
 
+    maximo = np.max(array_estelionato)
+    minimo = np.min(array_estelionato)
+    amplitude = maximo - minimo
+
+
     iqr = q3 - q1
 
     limite_inferior = q1 - (1.5 * iqr)
@@ -140,17 +145,32 @@ else:
 
 
 try:
-    plt.subplots(2, 2, figsize=(16, 8))
 
+    plt.subplots(2, 2, figsize=(18, 10))
+
+    # POSIÇÃO 01 - BOXPLOT
     plt.subplot(2, 2, 1)
+    #showfliers=False
     plt.boxplot(array_estelionato, vert=False, showmeans=True)
+    plt.title('Boxplot da Distribuição')
 
-
+    # POSIÇÃO 02 - MEDIDAS
     plt.subplot(2, 2, 2)
     plt.text(0.1, 0.9, f'Média: {media_estelionato}')
-    plt.text(0.1, 0.8, f'Mediana: {mediana_estelionato}')
-    plt.text(0.1, 0.7, f'Distância: {distancia_percentual}')
+    plt.text(0.1, 0.8, f'Distância: {distancia_percentual}')
+    plt.text(0.1, 0.7, f'Limite Inferior: {limite_inferior}')
+    plt.text(0.1, 0.6, f'Mínimo: {minimo}')
+    plt.text(0.1, 0.5, f'Q1: {q1}')
+    plt.text(0.1, 0.4, f'Mediana: {mediana_estelionato}')
+    plt.text(0.1, 0.3, f'Q3: {q3}')
+    plt.text(0.1, 0.2, f'Limite Superior: {limite_superior}')
+    plt.text(0.1, 0.1, f'Máximo: {maximo}')
+    plt.text(0.1, 0.0, f'Amplitude Total: {amplitude}')
 
+    plt.axis('off')
+    plt.title('Resumo Estatístico')
+
+    #plt.subplot(2, 2, 3)
 
 
     plt.show()
